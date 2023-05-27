@@ -13,9 +13,16 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (parent, args) => {
-      const User = await User.create(args);
-      const token = signToken(user)
-      return { token, user };
+      console.log(args)
+      try{
+
+        const user = await User.create(args);
+        const token = signToken(user)
+        return { token, user };
+      }
+      catch(err){
+        console.log(err)
+      }
     },
     saveBook: async (parent, { bookData }, context) => {
       if (context.user) {
